@@ -1,0 +1,61 @@
+﻿@model List<CrudMVC.Models.TableViewModels.UserTableViewModel>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Lista de Usuarios</h2>
+    
+<div class="row">
+    <div class="col-xs-12">
+        <input type="button" onclick="document.location.href = '@Url.Content("~/User/Crear")'" value="Crear" class="btn btn-primary"/>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nombre</th>
+                    <th>Email</th>
+                    <th>Edad</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Name</td>
+                    <td>@item.Email</td>
+                    <td>@item.Edad</td>
+                    <td>
+                        <input type="button" onclick="document.location.href='@Url.Content("~/User/Editar/"+item.Id)'" value="Editar" class="btn btn-info" />
+                        <input type="button" onclick="eliminar(@item.Id);" value="Eliminar" class="btn btn-danger" />
+                        @Html.ActionLink("Eliminar",
+                            "Eliminar", new { Id = item.Id },
+                                new { onclick = "return confirm('Esta seguro de Eliminar a= " + item.Name + "?')" })
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+  function  eliminar(id){
+       
+      var url = "@Url.Content("~/User/Eliminar2/")";
+
+      $.ajax({
+          type: "GET",
+          url: url,
+          data: {id:id},
+          success: function (result) {
+              document.location.href ='@Url.Content("~/User/Index")';
+
+          }
+      });
+    }
+</script>

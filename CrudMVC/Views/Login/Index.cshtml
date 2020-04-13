@@ -1,0 +1,30 @@
+﻿@model CrudMVC.Models.ViewModels.LoginViewModel
+@{
+    ViewBag.Title = "Login";
+    Layout ="~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+<h2>Login</h2>
+
+<div class="row">
+    <div class="col-xs-12">
+        @using (Html.BeginForm("Login", "Login", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.LabelFor(d => d.Email)
+            @Html.TextBoxFor(d => d.Email, new { @class = "form-control" })
+            @Html.ValidationMessage("Email", new { @class = "text-danger" }) <br />
+
+            @Html.LabelFor(d => d.Password)
+            @Html.PasswordFor(d => d.Password, new { @class = "form-control" })
+            @Html.ValidationMessage("Password", new { @class = "text-danger" })<br />
+
+            <label class="text-danger">@Html.DisplayFor(d => d.LoginMessageError)</label><br />
+
+            <input type="submit" class="btn btn-success" value="Ingresar" />
+
+        }
+
+    </div>
+</div>
