@@ -1,0 +1,40 @@
+﻿@model CrudMVC.Models.ViewModels.FileViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Cargar Archivos</h2>
+
+@if (ViewBag.Message !=null)
+{
+    <div class="alert alert-success">
+        @ViewBag.Message
+    </div>
+}
+
+
+<div class="row">
+    <div class="col-xs-6 col-lg-offset-3">
+        <div class="form-group">
+            @using (Html.BeginForm("SaveFiles", "File", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken();
+
+                @Html.LabelFor(d => d.Archivo1)
+                @Html.TextBoxFor(d => d.Archivo1, new { @class="form-control",type = "file", accept = ".png" })
+                @Html.ValidationMessageFor(d => d.Archivo1, "", new { @class = "text-danger" }) <br />
+
+                @Html.LabelFor(d => d.Archivo2)
+                @Html.TextBoxFor(d => d.Archivo2, new { @class="form-control",type = "file", accept = ".png" })
+                @Html.ValidationMessageFor(d => d.Archivo2, "", new { @class = "text-danger" })<br />
+
+                @Html.LabelFor(d => d.Cadena)
+                @Html.TextBoxFor(d => d.Cadena,new { @class="form-control"})
+                @Html.ValidationMessageFor(d => d.Cadena, "", new { @class = "text-danger" })<br />
+
+                <input type="submit" class="btn btn-primary" value="Subir" />
+
+            }
+        </div>
+    </div>
+</div>
